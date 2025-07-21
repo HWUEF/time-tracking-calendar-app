@@ -1,0 +1,398 @@
+/*
+ * Google Material 3 Expressive Stylesheet
+ * for the Time Tracking App
+ */
+
+/* Import the Roboto font family recommended by Material Design */
+@import url('https://fonts.googleapis.com/css2?family=Special+Gothic+Expanded+One&family=Work+Sans:wght@400;500;700&display=swap');
+
+/* 1. M3 Design Tokens (CSS Custom Properties) */
+:root {
+  /* Color Palette - Based on a cool-toned purple/blue primary */
+  --md-sys-color-primary: #6750A4;
+  --md-sys-color-on-primary: #FFFFFF;
+  --md-sys-color-primary-container: #EADDFF;
+  --md-sys-color-on-primary-container: #21005D;
+
+  --md-sys-color-secondary: #625B71;
+  --md-sys-color-on-secondary: #FFFFFF;
+  --md-sys-color-secondary-container: #E8DEF8;
+  --md-sys-color-on-secondary-container: #1D192B;
+
+  --md-sys-color-surface: #FFFBFE;
+  --md-sys-color-on-surface: #1C1B1F;
+  --md-sys-color-surface-variant: #E7E0EC;
+  --md-sys-color-on-surface-variant: #49454F;
+  --md-sys-color-surface-container: #F3EDF7;
+  --md-sys-color-surface-container-high: #EFE7F3;
+  --md-sys-color-surface-container-highest: #E6E0E9;
+
+  --md-sys-color-outline: #79747E;
+  --md-sys-color-outline-variant: #C4C6CF;
+
+  /* Shape Tokens - Expressive style uses larger radii */
+  --md-shape-corner-medium: 12px;
+  --md-shape-corner-large: 16px;
+  --md-shape-corner-extra-large: 28px;
+  --md-shape-corner-full: 9999px;
+
+  /* Typography Tokens */
+  --md-sys-typescale-headline-small-font: 'Special Gothic Expanded One', sans-serif;
+  --md-sys-typescale-headline-small-size: 24px;
+  --md-sys-typescale-headline-small-weight: 400;
+
+  --md-sys-typescale-label-large-font: 'Work Sans', sans-serif;
+  --md-sys-typescale-label-large-size: 14px;
+  --md-sys-typescale-label-large-weight: 500; /* Medium weight for labels */
+}
+
+/* 2. Global Styles & Resets */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 400; /* Regular weight for body text */
+  background-color: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 3. Main Layout */
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  flex: 0 0 280px; /* Fixed width for the sidebar */
+  background-color: var(--md-sys-color-surface-container);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  border-right: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.theme-controls-container {
+  margin-top: auto; /* Pushes the controls to the bottom */
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  position: relative; /* Needed to position the auth popup */
+}
+
+.primary-section {
+  flex-grow: 1;
+  padding: 24px 32px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 4. Sidebar Components */
+.view-toggles {
+  display: flex;
+  gap: 8px;
+  background-color: var(--md-sys-color-surface-container-high);
+  border-radius: var(--md-shape-corner-full);
+  padding: 4px;
+}
+
+.sidebar-options ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Base button style for all sidebar buttons */
+.toggle-button {
+  width: 100%;
+  border: none;
+  background-color: transparent;
+  padding: 12px 16px;
+  border-radius: var(--md-shape-corner-full);
+  cursor: pointer;
+  text-align: left;
+  
+  /* Typography */
+  font-family: var(--md-sys-typescale-label-large-font);
+  font-size: var(--md-sys-typescale-label-large-size);
+  font-weight: var(--md-sys-typescale-label-large-weight);
+  color: var(--md-sys-color-on-surface-variant);
+
+  /* Animation */
+  transition: background-color 150ms ease-in-out, color 150ms ease-in-out;
+}
+
+/* Specific styling for the top view toggles */
+.view-toggles .toggle-button {
+  flex-grow: 1;
+  text-align: center;
+  padding: 8px 12px;
+  color: var(--md-sys-color-on-surface-variant);
+  background-color: transparent;
+}
+
+.view-toggles .toggle-button.active {
+  background-color: var(--md-sys-color-secondary);
+  color: var(--md-sys-color-on-secondary);
+  font-family: 'Special Gothic Expanded One', sans-serif;
+  font-weight: 400; /* This font only has one weight */
+}
+
+/* Styling for the main navigation buttons */
+.sidebar-options .toggle-button:hover {
+  background-color: var(--md-sys-color-surface-container-high);
+}
+
+.sidebar-options .toggle-button.active {
+  background-color: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+  font-family: 'Special Gothic Expanded One', sans-serif;
+  font-weight: 400; /* This font only has one weight */
+}
+
+/* Focus state for accessibility */
+.toggle-button:focus-visible {
+  outline: 2px solid var(--md-sys-color-primary);
+  outline-offset: 2px;
+}
+
+/* 5. Primary Content Area */
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  max-height: 3vh;
+}
+
+.calendar-nav {
+  display: flex;
+  gap: 8px;
+}
+
+.calendar-header h2 {
+  margin: 0;
+  font-family: var(--md-sys-typescale-headline-small-font);
+  font-size: var(--md-sys-typescale-headline-small-size);
+  font-weight: var(--md-sys-typescale-headline-small-weight);
+  color: var(--md-sys-color-on-surface);
+  letter-spacing: 0.5px; /* Add some spacing for the expanded font */
+}
+
+.calendar-grid {
+  flex-grow: 1;
+  border-radius: var(--md-shape-corner-large) 0 0 0;
+  background-color: var(--md-sys-color-surface);
+  /* Make the grid itself scrollable, not the whole page */
+  overflow-y: auto;
+  /* Hide scrollbar for IE, Edge and Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Placeholder styles for when the grid is empty */
+.calendar-grid:not(.populated) {
+  border: 1px solid var(--md-sys-color-outline-variant);
+  display: grid;
+  place-content: center;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.calendar-grid:not(.populated)::before {
+  content: 'Calendar grid will be generated here.';
+  font-style: italic;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.calendar-grid::-webkit-scrollbar {
+  display: none;
+}
+
+/* 6. Dynamic Calendar Grid */
+.calendar-grid.populated {
+  display: grid;
+  /* The border is now applied to the cells themselves */
+  border-left: 1px solid var(--md-sys-color-outline-variant);
+  border-top: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.grid-cell {
+  border-right: 1px solid var(--md-sys-color-outline-variant);
+  border-bottom: 1px solid var(--md-sys-color-outline-variant);
+  padding: 8px;
+  font-size: 12px;
+  position: relative; /* For positioning elements inside */
+}
+
+.day-header {
+  text-align: center;
+  padding: 12px 8px;
+  font-weight: var(--md-sys-typescale-label-large-weight);
+  color: var(--md-sys-color-on-surface-variant);
+  position: sticky; /* Keep headers visible on scroll */
+  top: 0;
+  background-color: var(--md-sys-color-surface-container-high);
+  z-index: 10;
+}
+
+.day-header .day-name {
+  display: block;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.day-header .day-number {
+  font-size: 20px;
+  line-height: 1;
+  color: var(--md-sys-color-on-surface);
+}
+
+.day-header.today .day-number {
+  background-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+  border-radius: var(--md-shape-corner-full);
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.time-label {
+  /* Make the cell a flex container */
+  display: flex; 
+  align-items: flex-start; /* Align text to the top of the cell */
+
+  /* Original styling */
+  text-align: right;
+  color: var(--md-sys-color-on-surface-variant);
+  padding-right: 12px;
+  font-size: 12px;
+  top: 0; /* Set top to 0; transform is doing the work now */
+}
+
+.time-slot {
+  min-height: 1vh;
+}
+
+/* Style for the empty corner cell */
+.corner-cell {
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 11; /* Above day headers */
+  background-color: var(--md-sys-color-surface-container-high);
+}
+
+/* 6. Theme & Auth Controls */
+.pill-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--md-shape-corner-full);
+  border: 1px solid var(--md-sys-color-outline);
+  background-color: transparent;
+  color: var(--md-sys-color-on-surface-variant);
+  font-family: var(--md-sys-typescale-label-large-font);
+  font-size: var(--md-sys-typescale-label-large-size);
+  font-weight: var(--md-sys-typescale-label-large-weight);
+  cursor: pointer;
+  transition: background-color 150ms ease-in-out;
+}
+
+.pill-button.icon-button {
+    padding: 12px;
+    gap: 0;
+    /* Helps vertically center the icon */
+    line-height: 0;
+}
+
+.pill-button:hover {
+  background-color: var(--md-sys-color-surface-container-high);
+}
+
+.pill-button:focus-visible {
+  outline: 2px solid var(--md-sys-color-primary);
+  outline-offset: 2px;
+}
+
+/* Make both control buttons fill the available width */
+.theme-controls-container .pill-button {
+  flex: 1; /* Make buttons share the space equally */
+  padding: 12px 16px; /* Give them more vertical padding for a better look */
+}
+
+/* Styles for the user avatar in the auth button */
+.auth-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  object-fit: cover; /* Prevents image stretching */
+}
+
+/* 7. Auth Popup Menu */
+.auth-popup {
+  position: absolute;
+  bottom: calc(100% + 8px); /* Position above the button with a gap */
+  right: 0;
+  width: 280px;
+  background-color: var(--md-sys-color-surface-container-high);
+  border-radius: var(--md-shape-corner-medium);
+  border: 1px solid var(--md-sys-color-outline-variant);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  padding: 16px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.auth-popup-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.auth-popup-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.auth-popup-user-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0; /* Prevents overflow in flex container */
+}
+
+.auth-popup-name,
+.auth-popup-email {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.auth-popup-name {
+  font-weight: var(--md-sys-typescale-label-large-weight);
+  color: var(--md-sys-color-on-surface);
+}
+
+.auth-popup-email {
+  font-size: 12px;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.auth-popup-actions .pill-button {
+  width: 100%;
+  justify-content: flex-start; /* Align icon and text to the left */
+}
